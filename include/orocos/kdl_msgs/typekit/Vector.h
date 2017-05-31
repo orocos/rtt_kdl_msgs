@@ -1,9 +1,10 @@
-/* Generated from rtt_rostopic/src/msg_Types.hpp.in */
-
 #ifndef __OROCOS_ROS_GENERATED_kdl_msgs_Vector_TYPES_HPP
 #define __OROCOS_ROS_GENERATED_kdl_msgs_Vector_TYPES_HPP
 
 #include <kdl_msgs/Vector.h>
+
+// Skip this file if kdl_msgs::Vector is only an alias for KDL::Vector.
+#ifdef BOOST_NO_CXX11_TEMPLATE_ALIASES
 
 // All these classes were generated in the typekit library:
 #ifdef CORELIB_DATASOURCE_HPP
@@ -31,6 +32,9 @@
     extern template class RTT::Constant< kdl_msgs::Vector >;
 #endif
 
+#else
+#include <kdl_typekit/typekit/Types.hpp>
+#endif // BOOST_NO_CXX11_TEMPLATE_ALIASES
 
 #endif
 
