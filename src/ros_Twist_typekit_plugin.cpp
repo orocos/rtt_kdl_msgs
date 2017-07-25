@@ -5,6 +5,9 @@
 #include <rtt/types/CArrayTypeInfo.hpp>
 #include <vector>
 
+// Skip templates if kdl_msgs::Twist is only an alias for KDL::Twist.
+#ifdef BOOST_NO_CXX11_TEMPLATE_ALIASES
+
 // Note: we need to put these up-front or we get gcc compiler warnings:
 // <<warning: type attributes ignored after type is already defined>>        
 template class RTT_EXPORT RTT::internal::DataSourceTypeInfo< kdl_msgs::Twist >;
@@ -19,6 +22,8 @@ template class RTT_EXPORT RTT::InputPort< kdl_msgs::Twist >;
 template class RTT_EXPORT RTT::Property< kdl_msgs::Twist >;
 template class RTT_EXPORT RTT::Attribute< kdl_msgs::Twist >;
 template class RTT_EXPORT RTT::Constant< kdl_msgs::Twist >;
+
+#endif // BOOST_NO_CXX11_TEMPLATE_ALIASES
 
 namespace rtt_roscomm {
   using namespace RTT;
