@@ -1,15 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(rtt_kdl_msgs)
 
-## Find Orocos RTT and plugins
-find_package(OROCOS-RTT 2.0.0 COMPONENTS rtt-scripting rtt-marshalling rtt-transport-mqueue rtt-transport-corba)
-if (NOT OROCOS-RTT_FOUND)
-  message(FATAL_ERROR "\n   RTT not found. Is the version correct? Use the CMAKE_PREFIX_PATH cmake or environment variable to point to the installation directory of RTT.")
-else()
-  include(${OROCOS-RTT_USE_FILE_PATH}/UseOROCOS-RTT.cmake)
-  #add_definitions( -DRTT_COMPONENT )
-endif()
-
 ## find catkin and catkin dependencies
 find_package(catkin REQUIRED COMPONENTS rtt_roscomm kdl_msgs)
 catkin_destinations()
@@ -18,8 +9,9 @@ catkin_destinations()
 # mqueue transport
 OPTION(ENABLE_MQ "Build posix message queue transport plugin for ${_package}" OFF)
 if(ENABLE_MQ)
+  use_orocos(rtt-transport-mqueue)
   if (OROCOS-RTT_MQUEUE_FOUND)
-    message(STATUS "Building MQueue transport plugin for ROS messages in package ${_package} with ${OROCOS-RTT_MQUEUE_LIBRARIES}")
+    message(STATUS "Building MQueue transport plugin for ROS messages in package ${PROJECT_NAME} with ${OROCOS-RTT_MQUEUE_LIBRARIES}")
   else()
     message(WARNING "Disabled built of posix message queue transport plugin for ${_package} because the RTT mqueue plugin could not be found.")
     set(ENABLE_MQ OFF CACHE BOOL "Build posix message queue transport plugin for ${_package} (forced to OFF)" FORCE)
@@ -29,8 +21,9 @@ endif()
 # corba transport
 OPTION(ENABLE_CORBA "Build CORBA transport plugin for ${_package}" OFF)
 if(ENABLE_CORBA)
+  use_orocos(rtt-transport-corba)
   if(OROCOS-RTT_CORBA_FOUND)
-    message(STATUS "Building CORBA transport plugin for ROS messages in package ${_package} with ${OROCOS-RTT_CORBA_LIBRARIES}")
+    message(STATUS "Building CORBA transport plugin for ROS messages in package ${PROJECT_NAME} with ${OROCOS-RTT_CORBA_LIBRARIES}")
   else()
     message(WARNING "Disabled built of CORBA transport plugin for ${_package} because the RTT CORBA plugin could not be found.")
     set(ENABLE_CORBA OFF CACHE BOOL "Build CORBA transport plugin for ${_package} (forced to OFF)" FORCE)
